@@ -1,15 +1,19 @@
 package BST;
 
+import BST.BST.TreeNode;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
+import java.util.Map;
+import java.util.HashMap;
 
 public class BTView extends Pane {
     private BST<Integer> tree = new BST<Integer>();
     private double radius = 15; // Tree node radius
     private final double vGap = 50; // Gap between two levels in a tree
+    private Map<TreeNode<Integer>, Circle> nodeCircles = new HashMap<>();
 
     BTView(BST<Integer> tree) {
         this.tree = tree;
@@ -31,8 +35,7 @@ public class BTView extends Pane {
     /**
      * Display a subtree rooted at position (x, y)
      */
-    private void displayTree(BST.TreeNode<Integer> current,
-                             double x, double y, double hGap) {
+    private void displayTree(BST.TreeNode<Integer> current, double x, double y, double hGap) {
         if (current.left != null) {
             // Draw a line to the left node
             getChildren().add(new Line(x - hGap, y + vGap, x, y));
@@ -49,8 +52,19 @@ public class BTView extends Pane {
         Circle circle = new Circle(x, y, radius);
         circle.setFill(Color.WHITE);
         circle.setStroke(Color.BLACK);
-        getChildren().addAll(circle,
-                new Text(x - 4, y + 4, current.element + ""));
+        getChildren().addAll(circle, new Text(x - 4, y + 4, current.element + ""));
+        // add the circle to the map
+        nodeCircles.put(current, circle);
+    }
+
+    public void highlightNode(Integer element) {
+        TreeNode<Integer> node = tree.searchNode(element);
+        if (node != null) {
+            Circle circle = nodeCircles.get(node);
+            if (circle != null) {
+                circle.setFill(Color.RED); // Change the color to highlight the node
+            }
+        }
     }
 
 }

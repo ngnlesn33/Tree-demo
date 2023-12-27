@@ -1,11 +1,16 @@
 package BST;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
-
+import javafx.util.Duration;
+import java.util.Iterator;
 import java.util.Stack;
+import java.util.List;
+import java.util.ArrayList;
 
 public class BSTAnimationController {
     @FXML
@@ -94,14 +99,16 @@ public class BSTAnimationController {
     }
 
     // Change the node with current value to a new value
-    // User input the current value and new value in the text fields respectively and click the Update button to change
+    // User input the current value and new value in the text fields respectively and click the
+    // Update button to change
     // the node value in the tree view accordingly.
     public void handleUpdate(ActionEvent event) {
         String combinedText = tfKey.getText();
         String[] splitText = combinedText.split(",");
 
         if (splitText.length != 2) {
-            view.setStatus("Please enter two values separated by a comma.  Please use <currentValue>, <newValue>");
+            view.setStatus(
+                    "Please enter two values separated by a comma.  Please use <currentValue>, <newValue>");
             return;
         }
         String currentText = splitText[0].trim();
@@ -180,7 +187,40 @@ public class BSTAnimationController {
         undoStack.push(action);
     }
 
-    public void handleTraverseBFS(ActionEvent event) {
+    /**
+     * Handles the action event triggered by the "Traverse BFS" button. This method performs a
+     * Breadth-First Search (BFS) traversal on the tree and highlights each node as it is visited.
+     * The nodes are highlighted in the order they are visited, with a delay between each highlight.
+     * After all nodes have been visited, the tree is redrawn without any highlights.
+     *
+     * @param event The action event triggered by the button.
+     */
 
+    public void handleTraverseBFS(ActionEvent event) {
+        Iterator<Integer> iterator = tree.bfsIterator();
+        List<Integer> elements = new ArrayList<>();
+        while (iterator.hasNext()) {
+            elements.add(iterator.next());
+        }
+        // Create a timeline to schedule the animation, each element will be highlighted for 2
+        // seconds and the next element will be highlighted after 2 seconds
+        // The last element will be highlighted for 2 seconds and then the nodes will be
+        // unhighlighted after 2 seconds as well (total 4 seconds)
+        // The total time for the animation is 2 * elements.size() + 2 seconds
+        // The BFS traversal will block the UI thread, so we need to run it in a separate thread to
+        // avoid blocking the UI thread.
+        Timeline timeline = new Timeline();
+        for (int i = 0; i < elements.size(); i++) {
+            Integer element = elements.get(i);
+            timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(i * 2), e -> {
+                view.highlightNode(element);
+                System.out.println(element);
+            }));
+        }
+        // Add a delay at the end
+        timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(elements.size() * 2 + 2)));
+        timeline.play();
+        // Unhighlight the nodes after the animation is done
+        timeline.setOnFinished(e -> view.displayTree());
     }
 }

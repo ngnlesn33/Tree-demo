@@ -8,8 +8,8 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
     protected int size = 0;
 
     /*
-     * This inner class is static, because it does not access
-     * any instance members defined in its outer class
+     * This inner class is static, because it does not access any instance members defined in its
+     * outer class
      */
     public static class TreeNode<E extends Comparable<E>> {
         protected E element;
@@ -24,19 +24,19 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
     /*
      * Create a default binary tree
      */
-    public BST() {
-    }
+    public BST() {}
 
     /*
      * Create a binary tree from an array of objects
      */
     public BST(E[] objects) {
-        for (E object : objects) insert(object);
+        for (E object : objects)
+            insert(object);
     }
 
     @Override
     /*
-     *Returns true if the element is in the tree
+     * Returns true if the element is in the tree
      */
     public boolean search(E e) {
         TreeNode<E> current = root; // Start from the root
@@ -51,14 +51,29 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
         return false;
     }
 
+    public TreeNode<E> searchNode(E element) {
+        TreeNode<E> current = root; // Start from the root
+
+        while (current != null) {
+            if (element.compareTo(current.element) < 0) {
+                current = current.left; // Go left
+            } else if (element.compareTo(current.element) > 0) {
+                current = current.right; // Go right
+            } else { // element matches current.element
+                return current; // Element is found
+            }
+        }
+
+        return null; // Element is not in the tree
+    }
+
     protected TreeNode<E> createNewNode(E e) {
         return new TreeNode<>(e);
     }
 
     @Override
     /*
-     *Insert element o into the binary tree
-     *Return true if the element is inserted successfully
+     * Insert element o into the binary tree Return true if the element is inserted successfully
      */
     public boolean insert(E e) {
         if (root == null)
@@ -88,8 +103,7 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
 
     @Override
     /*
-     * Delete an element from the binary tree.
-     * Return true if the element is deleted successfully
+     * Delete an element from the binary tree. Return true if the element is deleted successfully
      * Return false if the element is not in the tree
      */
     public boolean delete(E e) {
@@ -152,7 +166,8 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
      * Preorder traversal from a subtree
      */
     protected void preorder(TreeNode<E> root) {
-        if (root == null) return;
+        if (root == null)
+            return;
         System.out.print(root.element + " ");
         preorder(root.left);
         preorder(root.right);
@@ -168,7 +183,8 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
      * Inorder traversal from a subtree
      */
     protected void inorder(TreeNode<E> root) {
-        if (root == null) return;
+        if (root == null)
+            return;
         inorder(root.left);
         System.out.print(root.element + " ");
         inorder(root.right);
@@ -184,12 +200,14 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
      * Postorder traversal from a subtree
      */
     protected void postorder(TreeNode<E> root) {
-        if (root == null) return;
+        if (root == null)
+            return;
         postorder(root.left);
         postorder(root.right);
         System.out.print(root.element + " ");
     }
 
+    @Override
     // Breadth-first traversal from the root
     public void breadthFirstTraversal() {
         breadthFirstTraversal(root);
@@ -199,14 +217,17 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
      * Breadth-first traversal from a subtree
      */
     protected void breadthFirstTraversal(TreeNode<E> root) {
-        if (root == null) return;
+        if (root == null)
+            return;
         Queue<TreeNode<E>> queue = new LinkedList<>();
         queue.add(root);
         while (!queue.isEmpty()) {
             TreeNode<E> node = queue.remove();
             System.out.print(node.element + " ");
-            if (node.left != null) queue.add(node.left);
-            if (node.right != null) queue.add(node.right);
+            if (node.left != null)
+                queue.add(node.left);
+            if (node.right != null)
+                queue.add(node.right);
         }
     }
 
@@ -264,11 +285,13 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
             inorder(root);
         }
 
+        //
         /*
          * Inorder traversal from a subtree
          */
         private void inorder(TreeNode<E> root) {
-            if (root == null) return;
+            if (root == null)
+                return;
             inorder(root.left);
             list.add(root.element);
             inorder(root.right);
@@ -292,6 +315,37 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
             BST.this.delete(list.get(current)); // Delete the current element
             list.clear(); // Clear the list
             inorder(); // Rebuild the list
+        }
+    }
+
+    public java.util.Iterator<E> bfsIterator() {
+        return new BFSIterator();
+    }
+
+    private class BFSIterator implements java.util.Iterator<E> {
+        private Queue<TreeNode<E>> queue = new LinkedList<>();
+
+        public BFSIterator() {
+            if (root != null) {
+                queue.offer(root);
+            }
+        }
+
+        @Override
+        public boolean hasNext() {
+            return !queue.isEmpty();
+        }
+
+        @Override
+        public E next() {
+            TreeNode<E> current = queue.poll();
+            if (current.left != null) {
+                queue.offer(current.left);
+            }
+            if (current.right != null) {
+                queue.offer(current.right);
+            }
+            return current.element;
         }
     }
 

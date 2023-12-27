@@ -8,14 +8,12 @@ public interface Tree<E> extends Iterable<E> {
     public boolean search(E e);
 
     /**
-     * Insert element o into the binary tree
-     * Return true if the element is inserted successfully
+     * Insert element o into the binary tree Return true if the element is inserted successfully
      */
     public boolean insert(E e);
 
     /**
-     * Delete the specified element from the tree
-     * Return true if the element is deleted successfully
+     * Delete the specified element from the tree Return true if the element is deleted successfully
      */
     public boolean delete(E e);
 
