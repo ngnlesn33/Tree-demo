@@ -1,5 +1,6 @@
 package BST;
 
+import Controller.BSTAnimationController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,7 +10,7 @@ import javafx.stage.Stage;
 public class BSTAnimation extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("BSTAnimation.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/BSTAnimation.fxml"));
         Parent root = loader.load();
 
         BSTAnimationController controller = loader.getController();

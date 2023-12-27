@@ -1,6 +1,7 @@
 package BST;
 
-import BST.BST.TreeNode;
+import Model.BST;
+import Model.BST.TreeNode;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;

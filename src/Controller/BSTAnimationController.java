@@ -1,5 +1,7 @@
 package BST;
 
+import Model.Action;
+import Model.BST;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
