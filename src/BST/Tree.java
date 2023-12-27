@@ -1,3 +1,6 @@
+package BST;
+
+// Return an iterator to traverse elements in the tree
 public interface Tree<E> extends Iterable<E> {
     /**
      * Return true if the element is in the tree
@@ -31,13 +34,18 @@ public interface Tree<E> extends Iterable<E> {
      */
     public void postorder();
 
+    // Breadth-first traversal from the root
+    public void breadthFirstTraversal();
+
     /**
      * Get the number of nodes in the tree
      */
+
     public int getSize();
 
     /**
      * Return true if the tree is empty
      */
     public boolean isEmpty();
+
 }

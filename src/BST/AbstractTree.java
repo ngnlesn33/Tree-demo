@@ -1,3 +1,5 @@
+package BST;
+
 public abstract class AbstractTree<E> implements Tree<E> {
     @Override
     /*Preorder traversal from the root */
@@ -12,6 +14,11 @@ public abstract class AbstractTree<E> implements Tree<E> {
     @Override
     /* Postorder traversal from the root */
     public void postorder() {
+    }
+
+    @Override
+    /* Breadth-first traversal from the root */
+    public void breadthFirstTraversal() {
     }
 
     @Override
