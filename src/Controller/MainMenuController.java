@@ -1,4 +1,4 @@
-package MainMenu;
+package Controller;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -25,7 +25,7 @@ public class MainMenuController {
 
     @FXML
     private void handleBinarySearchTree() {
-        handleTreeTypeSelection("/BST/BSTAnimation.fxml", "BST Visualization");
+        handleTreeTypeSelection("/View/BSTAnimation.fxml", "BST Visualization");
     }
 
     @FXML

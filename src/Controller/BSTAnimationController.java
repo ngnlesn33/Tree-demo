@@ -1,7 +1,8 @@
-package BST;
+package Controller;
 
 import Model.Action;
 import Model.BST;
+import View.BTView;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;

@@ -1,4 +1,4 @@
-package BST;
+package Model;
 
 // Return an iterator to traverse elements in the tree
 public interface Tree<E> extends Iterable<E> {

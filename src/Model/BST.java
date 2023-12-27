@@ -1,4 +1,4 @@
-package BST;
+package Model;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -16,15 +16,28 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
         protected TreeNode<E> left;
         protected TreeNode<E> right;
 
-        public TreeNode(E e) {
+        TreeNode(E e) {
             element = e;
+        }
+
+        public E getElement() {
+            return element;
+        }
+
+        public TreeNode<E> getLeft() {
+            return left;
+        }
+
+        public TreeNode<E> getRight() {
+            return right;
         }
     }
 
     /*
      * Create a default binary tree
      */
-    public BST() {}
+    public BST() {
+    }
 
     /*
      * Create a binary tree from an array of objects

@@ -1,4 +1,4 @@
-package BST;
+package Model;
 
 public class Action {
     private final int key;

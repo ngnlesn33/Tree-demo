@@ -1,4 +1,4 @@
-package MainMenu;
+package Main;
 
 import Controller.MainMenuController;
 import javafx.application.Application;
@@ -15,7 +15,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("main_menu.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/main_menu.fxml"));
         Parent root = loader.load();
 
         MainMenuController controller = loader.getController();

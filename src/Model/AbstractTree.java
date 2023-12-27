@@ -1,4 +1,4 @@
-package BST;
+package Model;
 
 public abstract class AbstractTree<E> implements Tree<E> {
     @Override

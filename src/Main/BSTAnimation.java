@@ -1,4 +1,4 @@
-package BST;
+package Main;
 
 import Controller.BSTAnimationController;
 import javafx.application.Application;

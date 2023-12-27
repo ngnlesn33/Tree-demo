@@ -1,4 +1,4 @@
-package BST;
+package View;
 
 import Model.BST;
 import Model.BST.TreeNode;
@@ -14,9 +14,9 @@ public class BTView extends Pane {
     private BST<Integer> tree = new BST<Integer>();
     private double radius = 15; // Tree node radius
     private final double vGap = 50; // Gap between two levels in a tree
-    private Map<TreeNode<Integer>, Circle> nodeCircles = new HashMap<>();
+    private final Map<TreeNode<Integer>, Circle> nodeCircles = new HashMap<>();
 
-    BTView(BST<Integer> tree) {
+    public BTView(BST<Integer> tree) {
         this.tree = tree;
         setStatus("Tree is empty");
     }
@@ -37,23 +37,23 @@ public class BTView extends Pane {
      * Display a subtree rooted at position (x, y)
      */
     private void displayTree(BST.TreeNode<Integer> current, double x, double y, double hGap) {
-        if (current.left != null) {
+        if (current.getLeft() != null) {
             // Draw a line to the left node
             getChildren().add(new Line(x - hGap, y + vGap, x, y));
             // Draw the left subtree recursively
-            displayTree(current.left, x - hGap, y + vGap, hGap / 2);
+            displayTree(current.getLeft(), x - hGap, y + vGap, hGap / 2);
         }
-        if (current.right != null) {
+        if (current.getRight() != null) {
             // Draw a line to the right node
             getChildren().add(new Line(x + hGap, y + vGap, x, y));
             // Draw the right subtree recursively
-            displayTree(current.right, x + hGap, y + vGap, hGap / 2);
+            displayTree(current.getRight(), x + hGap, y + vGap, hGap / 2);
         }
         // Display the current node
         Circle circle = new Circle(x, y, radius);
         circle.setFill(Color.WHITE);
         circle.setStroke(Color.BLACK);
-        getChildren().addAll(circle, new Text(x - 4, y + 4, current.element + ""));
+        getChildren().addAll(circle, new Text(x - 4, y + 4, current.getElement() + ""));
         // add the circle to the map
         nodeCircles.put(current, circle);
     }
