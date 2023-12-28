@@ -67,7 +67,7 @@ public class BSTAnimationController {
     }
 
     @FXML
-    private void handleInsert(ActionEvent event) {
+    void handleInsert(ActionEvent event) {
         // Implement the insert logic
         int key = Integer.parseInt(tfKey.getText());
         if (tree.search(key)) { // key is in the tree already
@@ -86,7 +86,7 @@ public class BSTAnimationController {
     }
 
     @FXML
-    private void handleDelete(ActionEvent event) {
+    void handleDelete(ActionEvent event) {
         // Implement the delete logic
         int key = Integer.parseInt(tfKey.getText());
         if (!tree.search(key)) { // key is not in the tree
@@ -108,7 +108,8 @@ public class BSTAnimationController {
     // User input the current value and new value in the text fields respectively and click the
     // Update button to change
     // the node value in the tree view accordingly.
-    public void handleUpdate(ActionEvent event) {
+    @FXML
+    void handleUpdate(ActionEvent event) {
         String combinedText = tfKey.getText();
         String[] splitText = combinedText.split(",");
 
@@ -137,8 +138,8 @@ public class BSTAnimationController {
         // After user clicks the Update button, the text field should be cleared
         tfKey.setText("");
     }
-
-    public void handleSearch(ActionEvent event) {
+    @FXML
+    void handleSearch(ActionEvent event) {
         // Search for a node in the tree. Highlight the node if found.
         int key = Integer.parseInt(tfKey.getText());
         if (tree.search(key)) { // key is in the tree already
@@ -152,7 +153,7 @@ public class BSTAnimationController {
     }
 
     @FXML
-    private void handleUndo(ActionEvent event) {
+    void handleUndo(ActionEvent event) {
         Action lastAction = popUndoAction();
         if (lastAction != null) {
             int key = lastAction.key();
@@ -172,7 +173,7 @@ public class BSTAnimationController {
     }
 
     @FXML
-    private void handleRedo(ActionEvent event) {
+    void handleRedo(ActionEvent event) {
         Action redoAction = popRedoAction();
         if (redoAction != null) {
             int key = redoAction.key();
@@ -209,8 +210,8 @@ public class BSTAnimationController {
      *
      * @param event The action event triggered by the button.
      */
-
-    public void handleTraverseBFS(ActionEvent event) {
+    @FXML
+    void handleTraverseBFS(ActionEvent event) {
         Iterator<Integer> iterator = tree.iterator();
         List<Integer> elements = new ArrayList<>();
         while (iterator.hasNext()) {
