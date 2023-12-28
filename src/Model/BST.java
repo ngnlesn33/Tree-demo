@@ -7,7 +7,7 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
     protected TreeNode<E> root;
     protected int size = 0;
 
-    /*
+    /**
      * This inner class is static, because it does not access any instance members defined in its
      * outer class
      */
@@ -33,23 +33,12 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
         }
     }
 
-    /*
+    /**
      * Create a default binary tree
      */
     public BST() {}
 
-    /*
-     * Create a binary tree from an array of objects
-     */
-    public BST(E[] objects) {
-        for (E object : objects)
-            insert(object);
-    }
-
     @Override
-    /*
-     * Returns true if the element is in the tree
-     */
     public boolean search(E e) {
         TreeNode<E> current = root; // Start from the root
         while (current != null) {
@@ -84,9 +73,6 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
     }
 
     @Override
-    /*
-     * Insert element o into the binary tree Return true if the element is inserted successfully
-     */
     public boolean insert(E e) {
         if (root == null)
             root = createNewNode(e); // Create a new root
@@ -114,10 +100,6 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
     }
 
     @Override
-    /*
-     * Delete an element from the binary tree. Return true if the element is deleted successfully
-     * Return false if the element is not in the tree
-     */
     public boolean delete(E e) {
         // Locate the node to be deleted and also locate its parent node
         TreeNode<E> parent = null;
@@ -192,24 +174,6 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
         }
     }
 
-    /*
-     * Returns a path from the root leading to the specified element
-     */
-    public java.util.ArrayList<TreeNode<E>> path(E e) {
-        java.util.ArrayList<TreeNode<E>> list = new java.util.ArrayList<>();
-        TreeNode<E> current = root; // Start from the root
-        while (current != null) {
-            list.add(current); // Add the node to the list
-            if (e.compareTo(current.element) < 0) {
-                current = current.left;
-            } else if (e.compareTo(current.element) > 0) {
-                current = current.right;
-            } else
-                break;
-        }
-        return list; // Return an array list of nodes
-    }
-
     @Override
     /* Get the number of nodes in the tree */
     public int getSize() {
@@ -255,12 +219,5 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
         }
     }
 
-    /**
-     * Remove all elements from the tree
-     */
-    public void clear() {
-        root = null;
-        size = 0;
-    }
 }
 

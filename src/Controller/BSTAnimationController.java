@@ -20,8 +20,8 @@ public class BSTAnimationController {
     private TextField tfKey;
 
     // Add your BST and BTView instances here
-    private BST<Integer> tree = new BST<>(); /// Create a tree
-    private BTView view = new BTView(tree); // Create a View
+    private final BST<Integer> tree; /// Create a tree
+    private final BTView view; // Create a View
     private final Stack<Action> undoStack = new Stack<>();
     private final Stack<Action> redoStack = new Stack<>();
 
@@ -155,7 +155,7 @@ public class BSTAnimationController {
     private void handleUndo(ActionEvent event) {
         Action lastAction = popUndoAction();
         if (lastAction != null) {
-            int key = lastAction.getKey();
+            int key = lastAction.key();
             String action;
             if (lastAction.isInsert()) {
                 tree.delete(key);
@@ -175,7 +175,7 @@ public class BSTAnimationController {
     private void handleRedo(ActionEvent event) {
         Action redoAction = popRedoAction();
         if (redoAction != null) {
-            int key = redoAction.getKey();
+            int key = redoAction.key();
             String action;
             if (redoAction.isInsert()) {
                 tree.insert(key);

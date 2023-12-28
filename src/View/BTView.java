@@ -12,8 +12,7 @@ import java.util.Map;
 import java.util.HashMap;
 
 public class BTView extends Pane {
-    private BST<Integer> tree = new BST<>();
-    private double radius = 15; // Tree node radius
+    private final BST<Integer> tree;
     private final double vGap = 50;
     private final Map<TreeNode<Integer>, Circle> nodeCircles = new HashMap<>();
 
@@ -53,6 +52,8 @@ public class BTView extends Pane {
             displayTree(current.getRight(), x + hGap, y + vGap, hGap / 2);
         }
         // Display the current node
+        // Tree node radius
+        double radius = 15;
         Circle circle = new Circle(x, y, radius);
         circle.setFill(Color.WHITE);
         circle.setStroke(Color.BLACK);

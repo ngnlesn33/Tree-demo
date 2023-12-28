@@ -8,11 +8,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.io.IOException;
 
 public class MainMenuController {
     private Stage mainStage; // Add this field
+    private static final Logger LOGGER = Logger.getLogger(MainMenuController.class.getName());
 
     public void setMainStage(Stage mainStage) {
         this.mainStage = mainStage;
@@ -20,8 +22,7 @@ public class MainMenuController {
 
 
     @FXML
-    private void handleGenericTree() {
-    }
+    private void handleGenericTree() {}
 
     @FXML
     private void handleBinarySearchTree() {
@@ -34,8 +35,7 @@ public class MainMenuController {
     }
 
     @FXML
-    private void handleBalancedBinaryTree() {
-    }
+    private void handleBalancedBinaryTree() {}
 
     @FXML
     private void showHelpDialog() {
@@ -77,7 +77,7 @@ public class MainMenuController {
             stage.setTitle(title);
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Failed to load the FXML file: " + fxmlFile, e);
         }
     }
 }
