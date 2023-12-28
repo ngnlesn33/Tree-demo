@@ -21,15 +21,15 @@ public interface Tree<E> extends Iterable<E> {
      * Preorder traversal from the root
      */
     public void preorder();
-
-    /**
-     * Inorder traversal from the root
-     */
+//
+//    /**
+//     * Inorder traversal from the root
+//     */
     public void inorder();
-
-    /**
-     * Postorder traversal from the root
-     */
+//
+//    /**
+//     * Postorder traversal from the root
+//     */
     public void postorder();
 
     // Breadth-first traversal from the root

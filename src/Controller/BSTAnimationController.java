@@ -20,7 +20,7 @@ public class BSTAnimationController {
     private TextField tfKey;
 
     // Add your BST and BTView instances here
-    private BST<Integer> tree = new BST<Integer>(); /// Create a tree
+    private BST<Integer> tree = new BST<>(); /// Create a tree
     private BTView view = new BTView(tree); // Create a View
     private final Stack<Action> undoStack = new Stack<>();
     private final Stack<Action> redoStack = new Stack<>();
@@ -62,7 +62,7 @@ public class BSTAnimationController {
     // Constructor
     public BSTAnimationController() {
         // Initialize your BST and BTView instances here
-        tree = new BST<Integer>();
+        tree = new BST<>();
         view = new BTView(tree);
     }
 
@@ -82,6 +82,7 @@ public class BSTAnimationController {
         tfKey.setText("");
         // After inserting, push the action to the history stack
         pushAction(key, true);
+        clearRedoStack(); // Clear the redo stack after a new action
     }
 
     @FXML
@@ -99,7 +100,9 @@ public class BSTAnimationController {
         // After user clicks the Delete button, the text field should be cleared
         tfKey.setText("");
         pushAction(key, false);
+        clearRedoStack(); // Clear the redo stack after a new action
     }
+
 
     // Change the node with current value to a new value
     // User input the current value and new value in the text fields respectively and click the
@@ -153,15 +156,16 @@ public class BSTAnimationController {
         Action lastAction = popUndoAction();
         if (lastAction != null) {
             int key = lastAction.getKey();
+            String action;
             if (lastAction.isInsert()) {
                 tree.delete(key);
-                view.displayTree();
-                view.setStatus(key + " insertion undone");
+                action = "insertion";
             } else {
                 tree.insert(key);
-                view.displayTree();
-                view.setStatus(key + " deletion undone");
+                action = "deletion";
             }
+            view.displayTree();
+            view.setStatus(key + " " + action + " undone");
             // Move the action to the redo stack
             pushRedoAction(lastAction);
         }
@@ -172,15 +176,16 @@ public class BSTAnimationController {
         Action redoAction = popRedoAction();
         if (redoAction != null) {
             int key = redoAction.getKey();
+            String action;
             if (redoAction.isInsert()) {
                 tree.insert(key);
-                view.displayTree();
-                view.setStatus(key + " insertion redone");
+                action = "insertion";
             } else {
                 tree.delete(key);
-                view.displayTree();
-                view.setStatus(key + " deletion redone");
+                action = "deletion";
             }
+            view.displayTree();
+            view.setStatus(key + " " + action + " redone");
             // Move the action back to the undo stack
             pushUndoAction(redoAction);
         }
@@ -188,6 +193,12 @@ public class BSTAnimationController {
 
     private void pushUndoAction(Action action) {
         undoStack.push(action);
+    }
+
+    private void clearRedoStack() {
+        while (!redoStack.isEmpty()) {
+            redoStack.pop();
+        }
     }
 
     /**
@@ -200,7 +211,7 @@ public class BSTAnimationController {
      */
 
     public void handleTraverseBFS(ActionEvent event) {
-        Iterator<Integer> iterator = tree.bfsIterator();
+        Iterator<Integer> iterator = tree.iterator();
         List<Integer> elements = new ArrayList<>();
         while (iterator.hasNext()) {
             elements.add(iterator.next());

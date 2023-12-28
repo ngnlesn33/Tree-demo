@@ -36,8 +36,7 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
     /*
      * Create a default binary tree
      */
-    public BST() {
-    }
+    public BST() {}
 
     /*
      * Create a binary tree from an array of objects
@@ -170,57 +169,6 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
     }
 
     @Override
-    /* Preorder traversal from the root */
-    public void preorder() {
-        preorder(root);
-    }
-
-    /**
-     * Preorder traversal from a subtree
-     */
-    protected void preorder(TreeNode<E> root) {
-        if (root == null)
-            return;
-        System.out.print(root.element + " ");
-        preorder(root.left);
-        preorder(root.right);
-    }
-
-    @Override
-    /* Inorder traversal from the root */
-    public void inorder() {
-        inorder(root);
-    }
-
-    /**
-     * Inorder traversal from a subtree
-     */
-    protected void inorder(TreeNode<E> root) {
-        if (root == null)
-            return;
-        inorder(root.left);
-        System.out.print(root.element + " ");
-        inorder(root.right);
-    }
-
-    @Override
-    /* Postorder traversal from the root */
-    public void postorder() {
-        postorder(root);
-    }
-
-    /**
-     * Postorder traversal from a subtree
-     */
-    protected void postorder(TreeNode<E> root) {
-        if (root == null)
-            return;
-        postorder(root.left);
-        postorder(root.right);
-        System.out.print(root.element + " ");
-    }
-
-    @Override
     // Breadth-first traversal from the root
     public void breadthFirstTraversal() {
         breadthFirstTraversal(root);
@@ -275,68 +223,12 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
         return root;
     }
 
-    @Override
-    /* Obtain an iterator. Use inorder. */
     public java.util.Iterator<E> iterator() {
-        return new InorderIterator();
-    }
-
-    // Inner class InorderIterator in outer class BST
-    private class InorderIterator implements java.util.Iterator<E> {
-        // Store the elements in a list
-        private final java.util.ArrayList<E> list = new java.util.ArrayList<>();
-        private int current = 0; // Point to the current element in list
-
-        public InorderIterator() {
-            inorder(); // Traverse binary tree and store elements in list
-        }
-
-        /**
-         * Inorder traversal from the root
-         */
-        private void inorder() {
-            inorder(root);
-        }
-
-        //
-        /*
-         * Inorder traversal from a subtree
-         */
-        private void inorder(TreeNode<E> root) {
-            if (root == null)
-                return;
-            inorder(root.left);
-            list.add(root.element);
-            inorder(root.right);
-        }
-
-        @Override
-        /* More elements for traversing? */
-        public boolean hasNext() {
-            return current < list.size();
-        }
-
-        @Override
-        /* Get the current element and move to the next */
-        public E next() {
-            return list.get(current++);
-        }
-
-        @Override
-        /* Remove the current element */
-        public void remove() {
-            BST.this.delete(list.get(current)); // Delete the current element
-            list.clear(); // Clear the list
-            inorder(); // Rebuild the list
-        }
-    }
-
-    public java.util.Iterator<E> bfsIterator() {
         return new BFSIterator();
     }
 
     private class BFSIterator implements java.util.Iterator<E> {
-        private Queue<TreeNode<E>> queue = new LinkedList<>();
+        private final Queue<TreeNode<E>> queue = new LinkedList<>();
 
         public BFSIterator() {
             if (root != null) {
@@ -352,6 +244,7 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
         @Override
         public E next() {
             TreeNode<E> current = queue.poll();
+            assert current != null;
             if (current.left != null) {
                 queue.offer(current.left);
             }

@@ -6,14 +6,15 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import java.util.Map;
 import java.util.HashMap;
 
 public class BTView extends Pane {
-    private BST<Integer> tree = new BST<Integer>();
+    private BST<Integer> tree = new BST<>();
     private double radius = 15; // Tree node radius
-    private final double vGap = 50; // Gap between two levels in a tree
+    private final double vGap = 50;
     private final Map<TreeNode<Integer>, Circle> nodeCircles = new HashMap<>();
 
     public BTView(BST<Integer> tree) {
@@ -22,7 +23,9 @@ public class BTView extends Pane {
     }
 
     public void setStatus(String msg) {
-        getChildren().add(new Text(20, 20, msg));
+        Text statusText = new Text(20, 20, msg);
+        statusText.setFont(new Font(20));
+        getChildren().add(statusText);
     }
 
     public void displayTree() {
